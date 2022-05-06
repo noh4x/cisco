@@ -1,0 +1,30 @@
+----------------------------------------------
+config repo for backup/use
+----------------------------------------------
+configure terminal
+repository MYrepo
+url sftp://1.1.1.1//MYrepo
+user ciscoprime password plain PASSWORD123
+
+backup prime37backup repository MYrepo application NCS
+
+show repository MYrepo
+restore prime37backup-220406-0720__VER3.7.0.0.159_BKSZ185G_CPU8_MEM3G_RAM15G_SWAP15G_APP_CK160698950938.tar.gpg repository MYrepo application NCS
+
+----------------------------------------------
+change ip on server
+----------------------------------------------
+ncs stop
+show interface
+
+conf t
+interface GigabitEthernet 0
+ip address 1.1.1.1 255.255.255.0
+exit
+
+ncs start
+
+----------------------------------------------
+reset web password
+----------------------------------------------
+ncs password root password NEWPASS123
